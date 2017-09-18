@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SudokuUI"
+             x:Class="SudokuUI.MainPage">
+
+    <StackLayout x:Name="base" BackgroundColor="Transparent">
+        <Label Text="OCR Sudoku" 
+               VerticalOptions="Center" 
+               HorizontalOptions="Center" />
+        <!--- <AbsoluteLayout x:Name="area"> -->
+        <Grid x:Name="numGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" Padding="0,0,0,0">
+            <Image Aspect="AspectFill" Grid.ColumnSpan="9" Grid.RowSpan="9" Source="blankgrid.png" Margin="0,0,0,0"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Grid x:Name="butGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" Padding="5,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>
