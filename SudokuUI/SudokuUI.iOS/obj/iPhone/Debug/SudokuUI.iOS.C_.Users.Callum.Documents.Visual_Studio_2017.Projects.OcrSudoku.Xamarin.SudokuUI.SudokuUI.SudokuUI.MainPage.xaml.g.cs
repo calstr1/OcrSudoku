@@ -11,8 +11,8 @@
 namespace SudokuUI {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\Callum\\Documents\\Visual Studio 2017\\Projects\\SudokuUI\\SudokuUI\\SudokuUI\\" +
-        "MainPage.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("C:\\Users\\Callum\\Documents\\Visual Studio 2017\\Projects\\OcrSudoku\\Xamarin\\SudokuUI\\" +
+        "SudokuUI\\SudokuUI\\MainPage.xaml")]
     public partial class MainPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]

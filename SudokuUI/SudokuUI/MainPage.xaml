@@ -4,13 +4,11 @@
              xmlns:local="clr-namespace:SudokuUI"
              x:Class="SudokuUI.MainPage">
 
-    <StackLayout x:Name="base" BackgroundColor="Transparent">
-        <Label Text="OCR Sudoku" 
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+    <StackLayout x:Name="base" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Spacing="2">
+        <Label x:Name="title" Text="OCR Sudoku" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="25"/>
         <!--- <AbsoluteLayout x:Name="area"> -->
-        <Grid x:Name="numGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" Padding="0,0,0,0">
-            <Image Aspect="AspectFill" Grid.ColumnSpan="9" Grid.RowSpan="9" Source="blankgrid.png" Margin="0,0,0,0"/>
+        <Grid x:Name="numGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="Transparent" Margin="1,1,0,1"><!--"0,2,0,2">-->
+            <Image Aspect="AspectFill" Grid.ColumnSpan="9" Grid.RowSpan="9" Source="blankgrid.png" Margin="-1,-1,0,-1"/><!--"-2,-2,-2,-2"/>-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -34,19 +32,33 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <Grid x:Name="butGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" Padding="5,0,5,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-        </Grid>
+        <StackLayout x:Name="buttonStack" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Spacing="2">
+            <Grid x:Name="butGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <!--<ColumnDefinition Width="3*"/>-->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="numpad" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Grid.Column="0" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Button Text = "Cancel" StyleId = "numCancelButton" BackgroundColor = "LightBlue" TranslationX = "0" VerticalOptions = "FillAndExpand"
+                        HorizontalOptions = "FillAndExpand" Grid.Column="0" Grid.Row="1" Clicked="CancelButtonClicked"/>
+            </Grid>
+            
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>
