@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sudoku
+namespace BackEnd
 {
     class Game
         /*Contains all the methods to play a sudoku, uses data structures in Board.

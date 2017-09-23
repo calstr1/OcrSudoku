@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using BackEnd;
 
 namespace SudokuUI
 {
@@ -14,8 +15,6 @@ namespace SudokuUI
         public MainPage()
 		{
 			InitializeComponent();
-            //BackgroundImage = "blankgrid.png";//new Image { Source = ImageSource.FromResource("SudokuUI.Resources.blankgrid.png") };
-
             
             for (int i = 0; i < 81; i++)
             {

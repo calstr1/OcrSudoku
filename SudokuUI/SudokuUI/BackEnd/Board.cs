@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using Sudoku;
 
-namespace Sudoku
+namespace BackEnd
 {
     class Board
         /*Contains all the sudoku data in terms of a full board, rows, columns, and squares.

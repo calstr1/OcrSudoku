@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sudoku;
 
-namespace Sudoku
+namespace BackEnd
 {
     class Logic
         /*Contains all the methods to solve a sudoku, uses data structures in Board.
