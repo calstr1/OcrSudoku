@@ -15,17 +15,25 @@ namespace SudokuUI
         public MainPage()
 		{
 			InitializeComponent();
-            
-            for (int i = 0; i < 81; i++)
+            Game.Play();
+
+            /*for (int i = 0; i < 81; i++)
             {
                 board[i] = i + 1;
-            }
+            }*/
             int row, col;
+            string num;
+            board = Game.Unsolved.board;
             for (int i = 0; i < 81; i++)
             {
                 col = i % 9;
                 row = i / 9;
-                numGrid.Children.Add(CreateButton(board[i], board[i]), col, row);
+                num = "" + board[i];
+                if (num == "0")
+                {
+                    numGrid.Children.Add(CreateButton("", i), col, row);
+                }
+                numGrid.Children.Add(CreateButton(num, board[i]), col, row);
             }
             for (int i = 0; i < 9; i++)
             {
@@ -43,18 +51,25 @@ namespace SudokuUI
             numGrid.Children.RemoveAt(index);
         }
 
-        private Button CreateButton(int i, int id)
+        private Button CreateButton(string i, int id)
         {
             var b = new Button
             {
-                Text =  "" + i,
+                Text =  i,
                 StyleId = "" + id,
                 BackgroundColor = Color.Transparent,
                 TranslationX = 0,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            b.Clicked += ButtonClicked;
+            if (i == "")
+            {
+                b.Clicked += ButtonClicked;
+            }
+            else
+            {
+                b.FontAttributes = FontAttributes.Bold;
+            }
             return b;
         }
 
