@@ -7,7 +7,7 @@
     <StackLayout x:Name="base" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Spacing="2">
         <Label x:Name="title" Text="OCR Sudoku" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="25"/>
         <!--- <AbsoluteLayout x:Name="area"> -->
-        <Grid x:Name="numGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="Transparent" Margin="1,1,0,1"><!--"0,2,0,2">-->
+        <Grid x:FieldModifier="public" x:Name="numGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="Transparent" Margin="1,1,0,1"><!--"0,2,0,2">-->
             <Image Aspect="AspectFill" Grid.ColumnSpan="9" Grid.RowSpan="9" Source="blankgrid.png" Margin="-1,-1,0,-1"/><!--"-2,-2,-2,-2"/>-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

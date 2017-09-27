@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SudokuUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    class Game
+    public class Game
         /*Contains all the methods to play a sudoku, uses data structures in Board.
          * Has methods to: play sudoku, check legallity of a value for a box, get user input for box and value selection, convert coordinates to an index.
          */
     {
-        public static Board Unsolved = new Board();
-        public static void Play()
+        //public static Board Unsolved = new Board();
+       /* public static void Play()
         {
             while (Unsolved.zeroes.Count() != 0)//runs until there are no empty squares left in board
             {
@@ -25,20 +26,20 @@ namespace BackEnd
             Unsolved.PrintBoard();
             Console.WriteLine("Done");
             Console.ReadLine();
-        }
+        }*/
 
-        public static string Legallity(int index, int value)//Checks whether the value is correct and if so implements
+        /*public string Legallity(int index, int value)//Checks whether the value is correct and if so implements
         {
-            if (Unsolved.initialBoard[index] != 0)//Ensures a starting number isnt selected as they cant be changed
-            {
-                if (Unsolved.zeroes.Contains(index))//checks if cell is empty
+            //if (Unsolved.initialBoard[index] != 0)//Ensures a starting number isnt selected as they cant be changed
+            //{
+                if (MainPage.Unsolved.zeroes.Contains(index))//checks if cell is empty
                 {
-                    if(Logic.PossList(index, Unsolved).Contains(value))//checks if there is a clash between a number in a row, column, or square, and the selected value
+                    if(Logic.PossList(index, MainPage.Unsolved).Contains(value))//checks if there is a clash between a number in a row, column, or square, and the selected value
                     {
                         if (value == Logic.Solved.board[index])//checks if value is correct
                         {
-                            Unsolved.Reconstruct(index, value);
-                            Unsolved.PrintBoard();
+                            MainPage.Unsolved.Reconstruct(index, value);
+                            //Unsolved.PrintBoard();
                             return "That value is correct";
                         }
                         else return "" + value + " is not the correct value.";
@@ -46,9 +47,9 @@ namespace BackEnd
                     else return "There is a " + value + " in the same square, column, or row.";
                 }
                 else return "That cell int empty";
-            }
-            else return "Original numbers cant be changed.";
-        }
+            //}
+            //else return "Original numbers cant be changed.";
+        }*/
 
         public static int GetIndex()//converts a set of coordinates to a board index
         {

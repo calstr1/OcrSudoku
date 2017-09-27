@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace BackEnd
 {
-    class Board
+    public class Board
         /*Contains all the sudoku data in terms of a full board, rows, columns, and squares.
          * Has methods to: initialise boards with an input provided, apply updates, and output the board.
          */
@@ -18,12 +18,23 @@ namespace BackEnd
         public int[] board = new int[81];
         public int[] initialBoard = new int[81];
         public List<int> zeroes = new List<int>();
-        public static List<int> options = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+        public List<int> options = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
-        public void Fill(int[] input)//initialises/fills out the board
+        public Board()
         {
+            this.rows = new int[9, 9];
+            this.columns = new int[9, 9];
+            this.squares = new int[9, 9];
+            this.board = new int[81];
+            this.initialBoard = new int[81];
+            this.zeroes = new List<int>();
+        }
+
+        public void Fill(string strIn)//initialises/fills out the board
+        {
+            int[] input = strIn.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             board = input;
-            initialBoard = input;
+            //initialBoard = input;
             int num1 = input[0];
             if (num1 == 0) zeroes.Add(0);
             columns[0, 0] = input[0];
@@ -39,9 +50,9 @@ namespace BackEnd
 
         public void Reconstruct(int i, int num)//finalises changes and updates board
         {
-            board[i] = num;
-            zeroes.Remove(i);
-            Populate(i, num);
+            this.board[i] = num;
+            this.zeroes.Remove(i);
+            this.Populate(i, num);
         }
 
         public void Populate(int i, int num)//Populates appropriate row, column, and square array with the value
@@ -49,9 +60,9 @@ namespace BackEnd
             int row = i / 9;
             int col = i % 9;
             int squ = (3 * (row / 3)) + (col / 3);
-            columns[col, row] = num;
-            rows[row, col] = num;
-            squares[squ, col % 3 + (3 * (row % 3))] = num;
+            this.columns[col, row] = num;
+            this.rows[row, col] = num;
+            this.squares[squ, col % 3 + (3 * (row % 3))] = num;
         }
 
         public void PrintBoard()//outputs the board in its current state

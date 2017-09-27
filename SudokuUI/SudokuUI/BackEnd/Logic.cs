@@ -1,3 +1,4 @@
+using SudokuUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    class Logic
+    public class Logic
         /*Contains all the methods to solve a sudoku, uses data structures in Board.
          * Has methods to: receive a user's input, return all legal possibilities for a box, and apply logic to solve the puzzle, and call on the user to solve the puzzle through Game.
          */
     {
+        //public static Board Unsolved = new Board();
         public static Board Solved = new Board();
-        public static void Main(string[] args)
+        public static void Main(string input)
         {
-            Console.WriteLine("Enter a sudoku board line by line with comma seperated numbers, and a zero for an empty square: ");
-            string line = Console.ReadLine();//collects user input
-            int[] input = line.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            //Console.WriteLine("Enter a sudoku board line by line with comma seperated numbers, and a zero for an empty square: ");
+           
             Solved.Fill(input);
-            Game.Unsolved.Fill(input);
-            Solved.PrintBoard();
+            //MainPage.Unsolved.Fill(input);
+            //Solved.PrintBoard();
             
             while (Solved.zeroes.Count() != 0)
             {
@@ -74,17 +75,17 @@ namespace BackEnd
                         IndexLogic(zSqu);
                     }
                 }
-                if (initial == Solved.zeroes.Count()) { Console.WriteLine("true"); break; }
+                if (initial == Solved.zeroes.Count()) { /*Console.WriteLine("true");*/ break; }
             }
-            Console.WriteLine("Do you wish to solve the puzzle (y/n)?: ");//sets up to pass control over to Game to run the play
+            /*Console.WriteLine("Do you wish to solve the puzzle (y/n)?: ");//sets up to pass control over to Game to run the play
             if(Console.ReadLine() == "y")
             {
                 Game.Play();
             }
-            else Solved.PrintBoard();
-            
+            else Solved.PrintBoard();*/
 
-        Console.Read();
+            //MainPage.Unsolved.Fill(input);
+            //Console.Read();
         }
 
         public static List<int> PossList(int i, Board board)//returns a list with all the legal number options
