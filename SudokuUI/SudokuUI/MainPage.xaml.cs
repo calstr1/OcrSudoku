@@ -10,7 +10,7 @@ namespace SudokuUI
 {
 	public partial class MainPage : ContentPage
 	{
-        public Board Unsolved;// = new Board();
+        public Board Unsolved = new Board();
         public int selectedIndex = 100;
         //public Logic SLogic = new Logic();
         //public int[] board = new int[81];
@@ -18,8 +18,7 @@ namespace SudokuUI
 		{
             InitializeComponent();
             string input = "5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8 ";//Console.ReadLine();//collects user input
-            Logic.Main(input);
-            Unsolved = new Board();
+            Unsolved.solvedBoard = Logic.Main(input).board;
             Unsolved.Fill(input);
 			//InitializeComponent();
             //Game.Play();
@@ -72,7 +71,7 @@ namespace SudokuUI
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            if (i == "")
+            if (i == "" || Unsolved.initialBoard[id-1] != Unsolved.board[id-1])
             {
                 b.Clicked += ButtonClicked;
             }
@@ -175,7 +174,7 @@ namespace SudokuUI
             //{
                 if (Logic.PossList(index, Unsolved).Contains(value))//checks if there is a clash between a number in a row, column, or square, and the selected value
                 {
-                    if (value == Logic.Solved.board[index])//checks if value is correct
+                    if (value == Unsolved.solvedBoard[index])//checks if value is correct
                     {
                         Unsolved.Reconstruct(index, value);
                         //Unsolved.PrintBoard();

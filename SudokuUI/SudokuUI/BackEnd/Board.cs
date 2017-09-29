@@ -17,6 +17,7 @@ namespace BackEnd
         public int[,] squares = new int[9, 9];
         public int[] board = new int[81];
         public int[] initialBoard = new int[81];
+        public int[] solvedBoard = new int[81];
         public List<int> zeroes = new List<int>();
         public List<int> options = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
@@ -34,7 +35,7 @@ namespace BackEnd
         {
             int[] input = strIn.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             board = input;
-            //initialBoard = input;
+            initialBoard = input;
             int num1 = input[0];
             if (num1 == 0) zeroes.Add(0);
             columns[0, 0] = input[0];
