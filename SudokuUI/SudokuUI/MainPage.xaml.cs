@@ -143,7 +143,7 @@ namespace SudokuUI
             if (selectedIndex != 100)
             {
                 int zcount = Unsolved.zeroes.Count();
-                ((Button)numGrid.Children.ElementAt(selectedIndex)).Text = button.Text;
+                //((Button)numGrid.Children.ElementAt(selectedIndex)).Text = button.Text;
                 string msg = Legallity(selectedIndex-1, Convert.ToInt32(button.Text));
                 if (msg == "That value is correct")
                 {
