@@ -92,9 +92,7 @@ C:\Users\Callum\Documents\Visual Studio 2017\Projects\OcrSudoku\Xamarin\SudokuUI
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\OcrSudoku\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Core.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\OcrSudoku\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\OcrSudoku\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
-C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Android.csprojResolveAssemblyReference.cache
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Android.csproj.CoreCompileInputs.cache
-C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Droid.MainPage.xaml.g.cs
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Droid.App.xaml.g.cs
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Android.dll
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Android.pdb
@@ -141,9 +139,12 @@ C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\res\drawable\blankgrid.jpg
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\R.cs.flag
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\uploadflags.txt
+C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Droid.MainMenu.xaml.g.cs
+C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Droid.MainPage.xaml.g.cs
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\bin\Debug\SudokuUI.Android.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\FormsViewGroup.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\SudokuUI.Android.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Core.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Platform.Android.dll.mdb
 C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\android\assets\Xamarin.Forms.Xaml.dll.mdb
+C:\Users\Callum\Documents\Visual Studio 2017\Projects\Xamarin\SudokuUI\SudokuUI\SudokuUI.Android\obj\Debug\SudokuUI.Android.csprojResolveAssemblyReference.cache

@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.IO;
 
 namespace SudokuUI.Droid
 {
@@ -19,8 +20,12 @@ namespace SudokuUI.Droid
 
 			base.OnCreate (bundle);
 
+            string fname = "sudoku_db.sqlite";
+            string flocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            string fpath = Path.Combine(flocation, fname);
+
 			global::Xamarin.Forms.Forms.Init (this, bundle);
-			LoadApplication (new SudokuUI.App ());
+			LoadApplication (new SudokuUI.App (fpath));
 		}
 	}
 }

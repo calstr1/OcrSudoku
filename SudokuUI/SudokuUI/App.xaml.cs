@@ -9,12 +9,23 @@ namespace SudokuUI
 {
 	public partial class App : Application
 	{
+        public static string DB_PATH = string.Empty;
+
 		public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new SudokuUI.MainPage();
+			MainPage = new NavigationPage(new MainMenu());
 		}
+
+        public App(string DB_Path)
+        {
+            InitializeComponent();
+
+            DB_PATH = DB_Path;
+
+            MainPage = new NavigationPage(new MainMenu());
+        }
 
 		protected override void OnStart ()
 		{

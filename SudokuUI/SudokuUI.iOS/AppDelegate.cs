@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using System.IO;
 
 namespace SudokuUI.iOS
 {
@@ -22,8 +23,12 @@ namespace SudokuUI.iOS
 		//
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
-			global::Xamarin.Forms.Forms.Init ();
-			LoadApplication (new SudokuUI.App ());
+            string fname = "sudoku_db.sqlite";
+            string flocation = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
+            string fpath = Path.Combine(flocation, fname);
+
+            global::Xamarin.Forms.Forms.Init ();
+			LoadApplication (new SudokuUI.App (fpath));
 
 			return base.FinishedLaunching (app, options);
 		}
