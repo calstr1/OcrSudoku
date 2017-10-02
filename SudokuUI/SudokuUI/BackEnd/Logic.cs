@@ -22,14 +22,14 @@ namespace BackEnd
             //MainPage.Unsolved.Fill(input);
             //Solved.PrintBoard();
             
-            while (Solved.zeroes.Count() != 0)
+            while (Solved.Zeroes.Count() != 0)
             {
-                int initial = Solved.zeroes.Count();
-                for (int i = 0; i < Solved.zeroes.Count(); i++)
+                int initial = Solved.Zeroes.Count();
+                for (int i = 0; i < Solved.Zeroes.Count(); i++)
                 {
-                    int boardIndex = Solved.zeroes.ElementAt(i);
+                    int boardIndex = Solved.Zeroes.ElementAt(i);
                     List<int> currPoss = PossList(boardIndex, Solved);
-                    if (currPoss.Count() == 1 && Solved.zeroes.Contains(boardIndex))//if there is only one possible number for that cell, enter it
+                    if (currPoss.Count() == 1 && Solved.Zeroes.Contains(boardIndex))//if there is only one possible number for that cell, enter it
                     {
                         int num = currPoss.ElementAt(0);
                         Solved.Reconstruct(boardIndex, num);
@@ -66,16 +66,16 @@ namespace BackEnd
                             int r1 = rowIndx[iter];
                             int c = colIndx[iter];
                             int s = squIndx[iter];
-                            if (Solved.zeroes.Contains(r1)) zRow.Add(r1);
-                            if (Solved.zeroes.Contains(c)) zCol.Add(c);
-                            if (Solved.zeroes.Contains(s)) zSqu.Add(s);
+                            if (Solved.Zeroes.Contains(r1)) zRow.Add(r1);
+                            if (Solved.Zeroes.Contains(c)) zCol.Add(c);
+                            if (Solved.Zeroes.Contains(s)) zSqu.Add(s);
                         }
                         IndexLogic(zRow);//applies aforementioned logic through the IndexLogic function to the applicable row, column, and square
                         IndexLogic(zCol);
                         IndexLogic(zSqu);
                     }
                 }
-                if (initial == Solved.zeroes.Count()) { /*Console.WriteLine("true");*/ break; }
+                if (initial == Solved.Zeroes.Count()) { /*Console.WriteLine("true");*/ break; }
             }
             /*Console.WriteLine("Do you wish to solve the puzzle (y/n)?: ");//sets up to pass control over to Game to run the play
             if(Console.ReadLine() == "y")
@@ -95,9 +95,9 @@ namespace BackEnd
             int col = i % 9;
             int squ = (3 * (row / 3)) + (col / 3);
             List<int> rcs = new List<int>();//a list which contains all conflicting numbers for that index
-            rcs.AddRange(board.rows.GetArr(row));
-            rcs.AddRange(board.columns.GetArr(col));
-            rcs.AddRange(board.squares.GetArr(squ));
+            rcs.AddRange(board.Rows.GetArr(row));
+            rcs.AddRange(board.Columns.GetArr(col));
+            rcs.AddRange(board.Squares.GetArr(squ));
             List<int> poss = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
             poss.RemoveAll(item => rcs.Contains(item));//removes allconflicting numbers from the possibility list and returns it
             return poss;
@@ -118,7 +118,7 @@ namespace BackEnd
             {
                 int boardIndex = z.ElementAt(i);
                 currPoss = PossList(boardIndex, Solved);//curr poss contains the current list of possibilities for a specific index
-                if (currPoss.Count() == 1 && Solved.zeroes.Contains(boardIndex))//checks if there is only one possibility for that index and double checks if index is empty
+                if (currPoss.Count() == 1 && Solved.Zeroes.Contains(boardIndex))//checks if there is only one possibility for that index and double checks if index is empty
                 {
                     int num = currPoss.ElementAt(0);
                     Solved.Reconstruct(boardIndex, num);
@@ -155,7 +155,7 @@ namespace BackEnd
                     for (int k = 0; k < indexesPoss.ElementAt(j).Count(); k++)
                     {
                         int val = indexesPoss.ElementAt(j).ElementAt(k);
-                        if (unique.Contains(val) && Solved.zeroes.Contains(z.ElementAt(j)))
+                        if (unique.Contains(val) && Solved.Zeroes.Contains(z.ElementAt(j)))
                         {
                             Solved.Reconstruct(z.ElementAt(j), val);
                         }

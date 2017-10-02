@@ -10,16 +10,27 @@ namespace SudokuUI
 {
 	public partial class MainPage : ContentPage
 	{
-        public Board Unsolved = new Board();
+        public Board Unsolved;
         public int selectedIndex = 100;
         //public Logic SLogic = new Logic();
         //public int[] board = new int[81];
-        public  MainPage()
+        public MainPage(Board Unsolved)
 		{
             InitializeComponent();
-            string input = "5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8 ";//Console.ReadLine();//collects user input
-            Unsolved.solvedBoard = Logic.Main(input).board;
-            Unsolved.Fill(input);
+
+            if (Unsolved.SolvedBoard[0] == 0)
+            {
+                string input = "5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8 ";//Console.ReadLine();//collects user input
+                Unsolved.SolvedBoard = Logic.Main(input).GameBoard;
+                Unsolved.Fill(input);
+
+                using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+                {
+                    conn.CreateTable<Board>();
+                    conn.Insert(Unsolved);
+                }
+            }
+            
 			//InitializeComponent();
             //Game.Play();
 
@@ -34,7 +45,7 @@ namespace SudokuUI
             {
                 col = i % 9;
                 row = i / 9;
-                num = "" + Unsolved.board[i];
+                num = "" + Unsolved.GameBoard[i];
                 if (num == "0")
                 {
                     numGrid.Children.Add(CreateButton("", i+1), col, row);
@@ -71,7 +82,7 @@ namespace SudokuUI
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            if (i == "" || Unsolved.initialBoard[id-1] != Unsolved.board[id-1])
+            if (i == "" || Unsolved.InitialBoard[id-1] != Unsolved.GameBoard[id-1])
             {
                 b.Clicked += ButtonClicked;
             }
@@ -141,19 +152,19 @@ namespace SudokuUI
             Button button = sender as Button;
             if (selectedIndex != 100)
             {
-                int zcount = Unsolved.zeroes.Count();
+                int zcount = Unsolved.Zeroes.Count();
                 //((Button)numGrid.Children.ElementAt(selectedIndex)).Text = button.Text;
                 string msg = Legallity(selectedIndex-1, Convert.ToInt32(button.Text));
                 if (msg == "That value is correct")
                 {
                     ((Button)numGrid.Children.ElementAt(selectedIndex)).Text = button.Text;
                 }
-                else if (Unsolved.zeroes.Count() == zcount)
+                else if (Unsolved.Zeroes.Count() == zcount)
                 {
                     DisplayAlert("Warning", msg, "OK");
                 }
                 SelectReset();
-                if (Unsolved.zeroes.Count() == 0)
+                if (Unsolved.Zeroes.Count() == 0)
                 {
                     DisplayAlert("Game Over","The Sudoku is Complete","Finish");
                 }
@@ -170,11 +181,11 @@ namespace SudokuUI
         {
             //if (Unsolved.initialBoard[index] != 0)//Ensures a starting number isnt selected as they cant be changed
             //{
-            //if (Unsolved.zeroes.Contains(index))//checks if cell is empty
+            //if (Unsolved.Zeroes.Contains(index))//checks if cell is empty
             //{
                 if (Logic.PossList(index, Unsolved).Contains(value))//checks if there is a clash between a number in a row, column, or square, and the selected value
                 {
-                    if (value == Unsolved.solvedBoard[index])//checks if value is correct
+                    if (value == Unsolved.SolvedBoard[index])//checks if value is correct
                     {
                         Unsolved.Reconstruct(index, value);
                         //Unsolved.PrintBoard();

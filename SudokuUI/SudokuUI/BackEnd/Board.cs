@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using SudokuUI;
+using SQLite;
 
 namespace BackEnd
 {
@@ -12,47 +14,49 @@ namespace BackEnd
          * Has methods to: initialise boards with an input provided, apply updates, and output the board.
          */
     {
-        public int[,] rows = new int[9, 9];
-        public int[,] columns = new int[9, 9];
-        public int[,] squares = new int[9, 9];
-        public int[] board = new int[81];
-        public int[] initialBoard = new int[81];
-        public int[] solvedBoard = new int[81];
-        public List<int> zeroes = new List<int>();
-        public List<int> options = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public int[,] Rows { get; set; }// = new int[9, 9];
+        public int[,] Columns { get; set; }// = new int[9, 9];
+        public int[,] Squares { get; set; }// = new int[9, 9];
+        public int[] GameBoard { get; set; }// = new int[81];
+        public int[] InitialBoard { get; set; }// = new int[81];
+        public int[] SolvedBoard { get; set; }// = new int[81];
+        public List<int> Zeroes { get; set; }// = new List<int>();
+        public static List<int> options  = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
         public Board()
         {
-            this.rows = new int[9, 9];
-            this.columns = new int[9, 9];
-            this.squares = new int[9, 9];
-            this.board = new int[81];
-            this.initialBoard = new int[81];
-            this.zeroes = new List<int>();
+            this.Rows = new int[9, 9];
+            this.Columns = new int[9, 9];
+            this.Squares = new int[9, 9];
+            this.GameBoard = new int[81];
+            this.InitialBoard = new int[81];
+            this.Zeroes = new List<int>();
         }
 
         public void Fill(string strIn)//initialises/fills out the board
         {
             int[] input = strIn.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-            board = input;
-            initialBoard = input;
+            GameBoard = input;
+            InitialBoard = input;
             int num1 = input[0];
-            if (num1 == 0) zeroes.Add(0);
-            columns[0, 0] = input[0];
-            rows[0, 0] = input[0];
-            squares[0, 0] = input[0];
+            if (num1 == 0) Zeroes.Add(0);
+            Columns[0, 0] = input[0];
+            Rows[0, 0] = input[0];
+            Squares[0, 0] = input[0];
             for (int i = 1; i < 81; i++)
             {
                 int num = input[i];
-                if (num == 0) zeroes.Add(i);
+                if (num == 0) Zeroes.Add(i);
                 Populate(i, num);
             }
         }
 
         public void Reconstruct(int i, int num)//finalises changes and updates board
         {
-            this.board[i] = num;
-            this.zeroes.Remove(i);
+            this.GameBoard[i] = num;
+            this.Zeroes.Remove(i);
             this.Populate(i, num);
         }
 
@@ -61,9 +65,9 @@ namespace BackEnd
             int row = i / 9;
             int col = i % 9;
             int squ = (3 * (row / 3)) + (col / 3);
-            this.columns[col, row] = num;
-            this.rows[row, col] = num;
-            this.squares[squ, col % 3 + (3 * (row % 3))] = num;
+            this.Columns[col, row] = num;
+            this.Rows[row, col] = num;
+            this.Squares[squ, col % 3 + (3 * (row % 3))] = num;
         }
 
         public void PrintBoard()//outputs the board in its current state
@@ -73,7 +77,7 @@ namespace BackEnd
                 String line = "";
                 for (int j = 0; j < 9; j++)
                 {
-                    String num = rows[i,j].ToString();
+                    String num = Rows[i,j].ToString();
                     if (num == "") num = " ";
                     line += num + " ";
                 }

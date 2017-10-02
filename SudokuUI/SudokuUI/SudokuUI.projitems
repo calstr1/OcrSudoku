@@ -15,8 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BackEnd\Board.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackEnd\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackEnd\Logic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\DBHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\ISQLite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -40,5 +38,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
   </ItemGroup>
 </Project>
