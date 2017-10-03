@@ -34,7 +34,7 @@ namespace SudokuUI
 
 		protected override void OnSleep ()
 		{
-			// Handle when your app sleeps
+            SudokuUI.MainPage.Unsolved.UpdateDB();
 		}
 
 		protected override void OnResume ()

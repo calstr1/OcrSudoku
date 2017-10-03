@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using SudokuUI;
 using SQLite;
+using System.Diagnostics;
 
 namespace BackEnd
 {
@@ -14,7 +15,6 @@ namespace BackEnd
          * Has methods to: initialise boards with an input provided, apply updates, and output the board.
          */
     {
-        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int[,] Rows { get; set; }// = new int[9, 9];
         public int[,] Columns { get; set; }// = new int[9, 9];
@@ -32,7 +32,20 @@ namespace BackEnd
             this.Squares = new int[9, 9];
             this.GameBoard = new int[81];
             this.InitialBoard = new int[81];
+            this.SolvedBoard = new int[81];
             this.Zeroes = new List<int>();
+        }
+
+        public Board(int id, string rows, string columns, string squares, string gameBoard, string initialBoard, string solvedBoard, string zeroes)
+        {
+            this.Id = id;
+            this.Rows = StringToArray2d(rows);
+            this.Columns = StringToArray2d(columns);
+            this.Squares = StringToArray2d(squares);
+            this.GameBoard = gameBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            this.InitialBoard = initialBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            this.SolvedBoard = solvedBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            this.Zeroes = zeroes.Split(',').Select(n => Convert.ToInt32(n)).ToList<int>();
         }
 
         public void Fill(string strIn)//initialises/fills out the board
@@ -53,21 +66,69 @@ namespace BackEnd
             }
         }
 
-        public void Reconstruct(int i, int num)//finalises changes and updates board
+        public void Reconstruct(int index, int num)//finalises changes and updates board
         {
-            this.GameBoard[i] = num;
-            this.Zeroes.Remove(i);
-            this.Populate(i, num);
+            this.GameBoard[index] = num;
+            this.Zeroes.Remove(index);
+            this.Populate(index, num);
         }
 
-        public void Populate(int i, int num)//Populates appropriate row, column, and square array with the value
+        public void Populate(int index, int num)//Populates appropriate row, column, and square array with the value
         {
-            int row = i / 9;
-            int col = i % 9;
+            int row = index / 9;
+            int col = index % 9;
             int squ = (3 * (row / 3)) + (col / 3);
             this.Columns[col, row] = num;
             this.Rows[row, col] = num;
             this.Squares[squ, col % 3 + (3 * (row % 3))] = num;
+        }
+
+        public int[,] StringToArray2d(string input)
+        {
+            int[,] output = new int[9, 9];
+            int[] temp = input.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            for (int i = 0; i < 81; i++)
+            {
+                int row = i / 9;
+                int col = i % 9;
+                output[row, col] = temp[i];
+            }
+            return output;
+        }
+
+        public void UpdateDB()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+            {
+                conn.Update(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+            }
+        }
+
+        public void SaveToDB()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+            {
+                conn.CreateTable<SaveBoard>();
+                conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+            }
+        }
+
+        public static Board Retrieve(int id)
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+            {
+                conn.CreateTable<SaveBoard>();
+                var sBoard = conn.Find<SaveBoard>(id);
+
+                if (sBoard != null)
+                {
+                    return new Board(sBoard.Id, sBoard.Rows, sBoard.Columns, sBoard.Squares, sBoard.GameBoard, sBoard.InitialBoard, sBoard.SolvedBoard, sBoard.Zeroes); ;
+                }
+                else
+                {
+                    return new Board();
+                }
+            }
         }
 
         public void PrintBoard()//outputs the board in its current state
@@ -84,6 +145,50 @@ namespace BackEnd
                 Console.WriteLine(line);
             }
             Console.WriteLine();
+        }
+    }
+
+    public class SaveBoard
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string Rows { get; set; }// = new int[9, 9];
+        public string Columns { get; set; }// = new int[9, 9];
+        public string Squares { get; set; }// = new int[9, 9];
+        public string GameBoard { get; set; }// = new int[81];
+        public string InitialBoard { get; set; }// = new int[81];
+        public string SolvedBoard { get; set; }// = new int[81];
+        public string Zeroes { get; set; }// = new List<int>();
+
+        public SaveBoard()
+        {
+
+        }
+
+        public SaveBoard(int id, int[,] rows, int[,] columns, int[,] squares, int[] gameBoard, int[] initialBoard, int[] solvedBoard, List<int> zeroes)
+        {
+            this.Id = id;
+            this.Rows = Array2dToString(rows);
+            this.Columns = Array2dToString(columns);
+            this.Squares = Array2dToString(squares);
+            this.GameBoard = string.Join(",",gameBoard);
+            this.InitialBoard = string.Join(",", initialBoard);
+            this.SolvedBoard = string.Join(",", solvedBoard);
+            this.Zeroes = string.Join(",", zeroes);
+        }
+        public string Array2dToString(int[,] input)
+        {
+            string output = "";
+            for (int i = 0; i < 9; i++)
+            {
+                var tempArray = input.GetArr(i);
+                for (int j = 0; j < 9; j++)
+                {
+                    output += (tempArray[j] + ",");
+                }
+            }
+            Debug.WriteLine(output.Remove(output.Length - 1));
+            return output.Remove(output.Length-1);
         }
     }
 

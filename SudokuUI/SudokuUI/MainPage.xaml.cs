@@ -10,12 +10,13 @@ namespace SudokuUI
 {
 	public partial class MainPage : ContentPage
 	{
-        public Board Unsolved;
+        public static Board Unsolved;
         public int selectedIndex = 100;
         //public Logic SLogic = new Logic();
         //public int[] board = new int[81];
-        public MainPage(Board Unsolved)
+        public MainPage(Board unsolved)
 		{
+            Unsolved = unsolved;
             InitializeComponent();
 
             if (Unsolved.SolvedBoard[0] == 0)
@@ -26,8 +27,9 @@ namespace SudokuUI
 
                 using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
                 {
-                    conn.CreateTable<Board>();
-                    conn.Insert(Unsolved);
+                    Unsolved.SaveToDB();
+                    //if (rownum > 0) DisplayAlert("Success", "Success", "Cancel");
+                    //else DisplayAlert("nope", "nope", "Cancel");
                 }
             }
             
@@ -198,6 +200,12 @@ namespace SudokuUI
             //else return "That cell isnt empty";
             //}
             //else return "Original numbers cant be changed.";
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Unsolved.UpdateDB();
         }
 
         protected override void OnSizeAllocated(double width, double height)
