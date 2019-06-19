@@ -16,7 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BackEnd\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackEnd\Logic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainMenu.xaml.cs">
-      <DependentUpon>MainMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -34,12 +34,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainMenu.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
+    <Compile Update="C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
