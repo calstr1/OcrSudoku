@@ -13,50 +13,20 @@ namespace SudokuUI
 	{
         public static Board Unsolved;
         public int selectedIndex = 100;
-        //public Logic SLogic = new Logic();
-        //public int[] board = new int[81];
         public MainPage(Board unsolved)
 		{
             Unsolved = unsolved;
             InitializeComponent();
 
-            if (Unsolved.SolvedBoard[0] == 0)
-            {
-                string input = "5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8 ";//Console.ReadLine();//collects user input
-                Unsolved.SolvedBoard = Logic.Main(input).GameBoard;
-                Unsolved.Fill(input);
-
-                using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
-                {
-                    Unsolved.SaveToDB();
-                    //if (rownum > 0) DisplayAlert("Success", "Success", "Cancel");
-                    //else DisplayAlert("nope", "nope", "Cancel");
-                }
-            }
-            
-			//InitializeComponent();
-            //Game.Play();
-
-            /*for (int i = 0; i < 81; i++)
-            {
-                board[i] = i + 1;
-            }*/
             int row, col;
             string num;
-            //Game.Unsolved.board = Game.Unsolved.board;
             for (int i = 0; i < 81; i++)
             {
                 col = i % 9;
                 row = i / 9;
                 num = "" + Unsolved.GameBoard[i];
-                if (num == "0")
-                {
-                    numGrid.Children.Add(CreateButton("", i+1), col, row);
-                }
-                else
-                {
-                    numGrid.Children.Add(CreateButton(num, i+1), col, row);
-                }
+                if (num == "0") numGrid.Children.Add(CreateButton("", i+1), col, row);
+                else numGrid.Children.Add(CreateButton(num, i+1), col, row);
             }
             for (int i = 0; i < 9; i++)
             {
@@ -64,7 +34,6 @@ namespace SudokuUI
                 row = i/3;
                 numpad.Children.Add(CreateNumButton(i), col, row);
                 butGrid.Children.Add(numpad, 0, 0);
-                //butGrid.Children.Add(CreateNumCancelButton(), 0, 1);
                 numGrid.Children.ElementAt(80);
             }
         }
@@ -85,14 +54,8 @@ namespace SudokuUI
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            if (i == "" || Unsolved.InitialBoard[id-1] != Unsolved.GameBoard[id-1])
-            {
-                b.Clicked += ButtonClicked;
-            }
-            else
-            {
-                b.FontAttributes = FontAttributes.Bold;
-            }
+            if (i == "" || Unsolved.InitialBoard[id-1] != Unsolved.GameBoard[id-1]) b.Clicked += ButtonClicked;
+            else b.FontAttributes = FontAttributes.Bold;
             return b;
         }
 
@@ -146,8 +109,6 @@ namespace SudokuUI
             SelectReset(index);
             selectedIndex = index;
             button.BackgroundColor = Color.Yellow;
-            //button.BackgroundColor = Color.White;
-            //numGrid.Children.RemoveAt(index);
         }
 
         public void NumButtonClicked(object sender, EventArgs e)
@@ -182,10 +143,6 @@ namespace SudokuUI
 
         public string Legallity(int index, int value)//Checks whether the value is correct and if so implements
         {
-            //if (Unsolved.initialBoard[index] != 0)//Ensures a starting number isnt selected as they cant be changed
-            //{
-            //if (Unsolved.Zeroes.Contains(index))//checks if cell is empty
-            //{
                 if (Logic.PossList(index, Unsolved).Contains(value))//checks if there is a clash between a number in a row, column, or square, and the selected value
                 {
                     if (value == Unsolved.SolvedBoard[index])//checks if value is correct
@@ -197,10 +154,6 @@ namespace SudokuUI
                     else return "" + value + " is not the correct value.";
                 }
                 else return "There is a " + value + " in the same square, column, or row.";
-            //}
-            //else return "That cell isnt empty";
-            //}
-            //else return "Original numbers cant be changed.";
         }
 
         protected override void OnDisappearing()

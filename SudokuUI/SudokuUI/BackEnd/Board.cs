@@ -36,6 +36,19 @@ namespace BackEnd
             this.Zeroes = new List<int>();
         }
 
+        public Board(string Input)
+        {
+            this.Rows = new int[9, 9];
+            this.Columns = new int[9, 9];
+            this.Squares = new int[9, 9];
+            this.GameBoard = new int[81];
+            this.InitialBoard = new int[81];
+            this.SolvedBoard = new int[81];
+            this.Zeroes = new List<int>();
+
+            Fill(Input);
+        }
+
         public Board(int id, string rows, string columns, string squares, string gameBoard, string initialBoard, string solvedBoard, string zeroes)
         {
             this.Id = id;
@@ -44,7 +57,8 @@ namespace BackEnd
             this.Squares = StringToArray2d(squares);
             this.GameBoard = gameBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             this.InitialBoard = initialBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-            this.SolvedBoard = solvedBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            //this.SolvedBoard = solvedBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            this.SolvedBoard = Logic.Main(this.MemberwiseClone() as Board);
             this.Zeroes = zeroes.Split(',').Select(n => Convert.ToInt32(n)).ToList<int>();
         }
 
@@ -64,6 +78,7 @@ namespace BackEnd
                 if (num == 0) Zeroes.Add(i);
                 Populate(i, num);
             }
+            SolvedBoard = Logic.Main(this.MemberwiseClone() as Board);
         }
 
         public void Reconstruct(int index, int num)//finalises changes and updates board
@@ -101,6 +116,8 @@ namespace BackEnd
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
             {
                 conn.Update(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+                conn.CreateTable<LatestId>();
+                conn.Update(new LatestId(this.Id));
             }
         }
 
@@ -110,6 +127,8 @@ namespace BackEnd
             {
                 conn.CreateTable<SaveBoard>();
                 conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+                conn.CreateTable<LatestId>() ;
+                conn.Update(new LatestId(this.Id));
             }
         }
 
@@ -117,12 +136,48 @@ namespace BackEnd
         {
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
             {
-                conn.CreateTable<SaveBoard>();
-                var sBoard = conn.Find<SaveBoard>(id);
+                //conn.CreateTable<SaveBoard>();
+                SaveBoard sBoard = conn.Find<SaveBoard>(id);
 
                 if (sBoard != null)
                 {
-                    return new Board(sBoard.Id, sBoard.Rows, sBoard.Columns, sBoard.Squares, sBoard.GameBoard, sBoard.InitialBoard, sBoard.SolvedBoard, sBoard.Zeroes); ;
+                    return new Board(
+                        sBoard.Id,
+                        sBoard.Rows, 
+                        sBoard.Columns, 
+                        sBoard.Squares, 
+                        sBoard.GameBoard, 
+                        sBoard.InitialBoard, 
+                        sBoard.SolvedBoard, 
+                        sBoard.Zeroes
+                        );
+                }
+                else
+                {
+                    return new Board();
+                }
+            }
+        }
+
+        public static Board Retrieve()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+            {
+                //conn.CreateTable<SaveBoard>();
+                SaveBoard sBoard = conn.Find<SaveBoard>(conn.Find<LatestId>(1).LatestID);
+
+                if (sBoard != null)
+                {
+                    return new Board(
+                        sBoard.Id,
+                        sBoard.Rows,
+                        sBoard.Columns,
+                        sBoard.Squares,
+                        sBoard.GameBoard,
+                        sBoard.InitialBoard,
+                        sBoard.SolvedBoard,
+                        sBoard.Zeroes
+                        );
                 }
                 else
                 {
@@ -145,6 +200,24 @@ namespace BackEnd
                 Console.WriteLine(line);
             }
             Console.WriteLine();
+        }
+    }
+
+    public class LatestId
+    {
+        [PrimaryKey]
+        public int Id { get; set; }
+
+        public int LatestID { get; set; }
+
+        public LatestId()
+        {
+
+        }
+        public LatestId(int LatestId)
+        {
+            this.Id = 1;
+            this.LatestID = LatestId;
         }
     }
 
@@ -189,6 +262,22 @@ namespace BackEnd
             }
             Debug.WriteLine(output.Remove(output.Length - 1));
             return output.Remove(output.Length-1);
+        }
+    }
+    public static class BoardExtensions
+    {
+        public static Board Clone(this Board Original)
+        {
+            Board Copy = new Board();
+            Copy.Id = Original.Id;
+            Copy.Rows = Original.Rows;
+            Copy.Columns = Original.Columns;
+            Copy.Squares = Original.Squares;
+            Copy.GameBoard = Original.GameBoard;
+            Copy.InitialBoard = Original.InitialBoard;
+            Copy.SolvedBoard = Original.SolvedBoard;
+            Copy.Zeroes = Original.Zeroes;
+            return Copy;
         }
     }
 

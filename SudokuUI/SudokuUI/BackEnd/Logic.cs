@@ -14,11 +14,12 @@ namespace BackEnd
     {
         //public static Board Unsolved = new Board();
         public static Board Solved = new Board();
-        public static Board Main(string input)
+        public static int[] Main(Board Input)//(string input)
         {
             //Console.WriteLine("Enter a sudoku board line by line with comma seperated numbers, and a zero for an empty square: ");
-           
-            Solved.Fill(input);
+
+            Solved = Input.Clone();
+            //Solved.Fill(input);
             //MainPage.Unsolved.Fill(input);
             //Solved.PrintBoard();
             
@@ -86,7 +87,7 @@ namespace BackEnd
 
             //MainPage.Unsolved.Fill(input);
             //Console.Read();
-            return Solved;
+            return Solved.GameBoard;
         }
 
         public static List<int> PossList(int i, Board board)//returns a list with all the legal number options
