@@ -18,6 +18,11 @@ namespace SudokuUI
             Unsolved = unsolved;
             InitializeComponent();
 
+            if (Unsolved.SolvedBoard.Contains(0))
+            {
+                Unsolved.SolvedBoard = Logic.Main(Unsolved.Clone());
+            }
+
             int row, col;
             string num;
             for (int i = 0; i < 81; i++)

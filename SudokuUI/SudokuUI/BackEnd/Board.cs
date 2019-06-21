@@ -57,8 +57,8 @@ namespace BackEnd
             this.Squares = StringToArray2d(squares);
             this.GameBoard = gameBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             this.InitialBoard = initialBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-            //this.SolvedBoard = solvedBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-            this.SolvedBoard = Logic.Main(this.MemberwiseClone() as Board);
+            this.SolvedBoard = solvedBoard.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+            //this.SolvedBoard = Logic.Main(this.MemberwiseClone() as Board);
             this.Zeroes = zeroes.Split(',').Select(n => Convert.ToInt32(n)).ToList<int>();
         }
 
@@ -78,7 +78,6 @@ namespace BackEnd
                 if (num == 0) Zeroes.Add(i);
                 Populate(i, num);
             }
-            SolvedBoard = Logic.Main(this.MemberwiseClone() as Board);
         }
 
         public void Reconstruct(int index, int num)//finalises changes and updates board
@@ -128,7 +127,21 @@ namespace BackEnd
                 conn.CreateTable<SaveBoard>();
                 conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
                 conn.CreateTable<LatestId>() ;
-                conn.Update(new LatestId(this.Id));
+                try
+                {
+                    if (conn.Table<LatestId>().Count() == 0)
+                    {
+                        conn.Insert(new LatestId(this.Id));
+                    }
+                    else
+                    {
+                        conn.Update(new LatestId(this.Id));
+                    }
+                }
+                catch
+                {
+                    conn.Insert(new LatestId(this.Id));
+                }
             }
         }
 
