@@ -20,7 +20,7 @@ namespace SudokuUI
 
             if (Unsolved.SolvedBoard.Contains(0))
             {
-                Unsolved.SolvedBoard = Logic.Main(Unsolved.Clone());
+                Unsolved.SolvedBoard = Logic.Main((Board)Unsolved.Clone());
             }
 
             int row, col;

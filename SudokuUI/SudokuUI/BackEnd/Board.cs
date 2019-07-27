@@ -7,10 +7,13 @@ using System.Runtime.InteropServices;
 using SudokuUI;
 using SQLite;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BackEnd
 {
-    public class Board
+    [Serializable]
+    public class Board : ICloneable
         /*Contains all the sudoku data in terms of a full board, rows, columns, and squares.
          * Has methods to: initialise boards with an input provided, apply updates, and output the board.
          */
@@ -117,6 +120,7 @@ namespace BackEnd
                 conn.Update(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
                 conn.CreateTable<LatestId>();
                 conn.Update(new LatestId(this.Id));
+                SetLatest(conn, this.Id);
             }
         }
 
@@ -124,24 +128,40 @@ namespace BackEnd
         {
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
             {
-                conn.CreateTable<SaveBoard>();
-                conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
-                conn.CreateTable<LatestId>() ;
+                int LatestId;
                 try
                 {
-                    if (conn.Table<LatestId>().Count() == 0)
-                    {
-                        conn.Insert(new LatestId(this.Id));
-                    }
-                    else
-                    {
-                        conn.Update(new LatestId(this.Id));
-                    }
+                    LatestId = conn.Find<LatestId>(1).LatestID;
                 }
-                catch
+                catch (Exception e)
+                {
+                    LatestId = -1;
+                }
+                if (LatestId == -1) this.Id = 1;
+                else this.Id = LatestId++ ;
+                conn.CreateTable<SaveBoard>();
+                conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+                SetLatest(conn, this.Id);
+            }
+        }
+
+        public void SetLatest(SQLite.SQLiteConnection conn, int Id)
+        {
+            conn.CreateTable<LatestId>();
+            try
+            {
+                if (conn.Table<LatestId>().Count() == 0)
                 {
                     conn.Insert(new LatestId(this.Id));
                 }
+                else
+                {
+                    conn.Update(new LatestId(this.Id));
+                }
+            }
+            catch
+            {
+                conn.Insert(new LatestId(this.Id));
             }
         }
 
@@ -194,7 +214,10 @@ namespace BackEnd
                 }
                 else
                 {
-                    return new Board();
+                    Board board = new BackEnd.Board();
+                    board.Fill("5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8");
+                    board.SaveToDB();
+                    return Retrieve();
                 }
             }
         }
@@ -213,6 +236,11 @@ namespace BackEnd
                 Console.WriteLine(line);
             }
             Console.WriteLine();
+        }
+
+        public virtual object Clone()
+        {
+            return this.CloneObjectSerializable<Board>();
         }
     }
 
@@ -276,10 +304,34 @@ namespace BackEnd
             Debug.WriteLine(output.Remove(output.Length - 1));
             return output.Remove(output.Length-1);
         }
+
     }
+
+    public static class MyExtensions
+    {
+        public static Board CloneObject<Board>(this object source)
+        {
+            Board result = Activator.CreateInstance<Board>();
+
+            //// **** made things
+
+            return result;
+        }
+        public static T CloneObjectSerializable<T>(this T obj) where T : class
+        {
+            MemoryStream ms = new MemoryStream();
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(ms, obj);
+            ms.Position = 0;
+            object result = bf.Deserialize(ms);
+            ms.Close();
+            return (T)result;
+        }
+    }
+
     public static class BoardExtensions
     {
-        public static Board Clone(this Board Original)
+        /*public static Board Clone(this Board Original)
         {
             Board Copy = new Board();
             Copy.Id = Original.Id;
@@ -291,7 +343,7 @@ namespace BackEnd
             Copy.SolvedBoard = Original.SolvedBoard;
             Copy.Zeroes = Original.Zeroes;
             return Copy;
-        }
+        }*/
     }
 
     public static class ArrayExt//provides a way to return a whole array at once from an array of arrays

@@ -31,7 +31,7 @@ namespace SudokuUI
                     using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
                     {
                         Board temp = new Board(BoardStr);
-                        temp.SolvedBoard = Logic.Main(temp.Clone());
+                        temp.SolvedBoard = Logic.Main((Board)temp.Clone());
                         temp.SaveToDB();
                     }
                 }
