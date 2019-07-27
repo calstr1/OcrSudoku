@@ -128,7 +128,7 @@ namespace BackEnd
         {
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
             {
-                int LatestId;
+                /*int LatestId;
                 try
                 {
                     LatestId = conn.Find<LatestId>(1).LatestID;
@@ -138,10 +138,10 @@ namespace BackEnd
                     LatestId = -1;
                 }
                 if (LatestId == -1) this.Id = 1;
-                else this.Id = LatestId++ ;
+                else this.Id = LatestId++ ;*/
                 conn.CreateTable<SaveBoard>();
-                conn.Insert(new SaveBoard(this.Id, this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
-                SetLatest(conn, this.Id);
+                int pk = conn.Insert(new SaveBoard(this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
+                SetLatest(conn, pk);
             }
         }
 
@@ -150,18 +150,12 @@ namespace BackEnd
             conn.CreateTable<LatestId>();
             try
             {
-                if (conn.Table<LatestId>().Count() == 0)
-                {
-                    conn.Insert(new LatestId(this.Id));
-                }
-                else
-                {
-                    conn.Update(new LatestId(this.Id));
-                }
+                if (conn.Table<LatestId>().Count() == 0) conn.Insert(new LatestId(Id));
+                else conn.Update(new LatestId(Id));
             }
             catch
             {
-                conn.Insert(new LatestId(this.Id));
+                conn.Insert(new LatestId(Id));
             }
         }
 
@@ -277,6 +271,16 @@ namespace BackEnd
         public SaveBoard()
         {
 
+        }
+        public SaveBoard(int[,] rows, int[,] columns, int[,] squares, int[] gameBoard, int[] initialBoard, int[] solvedBoard, List<int> zeroes)
+        {
+            this.Rows = Array2dToString(rows);
+            this.Columns = Array2dToString(columns);
+            this.Squares = Array2dToString(squares);
+            this.GameBoard = string.Join(",", gameBoard);
+            this.InitialBoard = string.Join(",", initialBoard);
+            this.SolvedBoard = string.Join(",", solvedBoard);
+            this.Zeroes = string.Join(",", zeroes);
         }
 
         public SaveBoard(int id, int[,] rows, int[,] columns, int[,] squares, int[] gameBoard, int[] initialBoard, int[] solvedBoard, List<int> zeroes)

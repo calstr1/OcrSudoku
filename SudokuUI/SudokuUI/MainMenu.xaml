@@ -10,7 +10,7 @@
         <StackLayout>
             <Label Text="Main Menu" FontSize="Large" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" HeightRequest="30" />
             <Button Text="Continue Game" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="Continue" />
-            <Button Text="New Game" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <Button Text="New Game" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Clicked="NewGame"/>
             <Button Text="Scan Puzzle" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>

@@ -376,3 +376,4 @@ C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\90\R.
 C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\90\R.txt
 C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\90\uploadflags.txt
 C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\90\SudokuUI.Droid.MainMenu.xaml.g.cs
+C:\Users\Callum\Source\Repos\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\90\SudokuUI.Droid.BoardSelect.xaml.g.cs
