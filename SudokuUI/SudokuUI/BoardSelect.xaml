@@ -8,7 +8,29 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Puzzle Name" FontSize="Large" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" HeightRequest="30" />
-            <Grid x:FieldModifier="public" x:Name="displayGrid">
+            <Grid x:FieldModifier="public" x:Name="displayGrid" BackgroundColor="Black">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

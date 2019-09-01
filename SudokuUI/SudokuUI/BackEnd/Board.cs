@@ -65,7 +65,7 @@ namespace BackEnd
             this.Zeroes = zeroes.Split(',').Select(n => Convert.ToInt32(n)).ToList<int>();
         }
 
-        public void Fill(string strIn)//initialises/fills out the board
+        public void Fill(string strIn)
         {
             int[] input = strIn.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
             GameBoard = input;
@@ -128,17 +128,6 @@ namespace BackEnd
         {
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
             {
-                /*int LatestId;
-                try
-                {
-                    LatestId = conn.Find<LatestId>(1).LatestID;
-                }
-                catch (Exception e)
-                {
-                    LatestId = -1;
-                }
-                if (LatestId == -1) this.Id = 1;
-                else this.Id = LatestId++ ;*/
                 conn.CreateTable<SaveBoard>();
                 int pk = conn.Insert(new SaveBoard(this.Rows, this.Columns, this.Squares, this.GameBoard, this.InitialBoard, this.SolvedBoard, this.Zeroes));
                 SetLatest(conn, pk);
