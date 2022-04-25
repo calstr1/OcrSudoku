@@ -205,6 +205,36 @@ namespace BackEnd
             }
         }
 
+        public static List<Board> RetrieveAll()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.DB_PATH))
+            {
+                //conn.CreateTable<SaveBoard>();
+                List<SaveBoard> sBoards = conn.Query<SaveBoard>("SELECT * FROM SaveBoard WHERE GameBoard <> SolvedBoard");
+
+                List<Board> boards = sBoards.Select(sBoard => new Board(sBoard.Id,
+                       sBoard.Rows,
+                       sBoard.Columns,
+                       sBoard.Squares,
+                       sBoard.GameBoard,
+                       sBoard.InitialBoard,
+                       sBoard.SolvedBoard,
+                       sBoard.Zeroes)).ToList();
+
+                if (boards.Count != 0)
+                {
+                    return boards;
+                }
+                else
+                {
+                    Board board = new BackEnd.Board();
+                    board.Fill("5,3,8,0,1,6,0,7,9,0,0,0,3,8,0,5,4,1,2,4,1,5,0,0,0,0,0,0,6,0,9,0,0,0,0,0,0,0,0,0,3,5,0,9,0,0,9,0,0,0,4,0,0,2,6,0,0,2,0,0,9,3,0,1,2,9,0,4,0,0,5,0,0,5,4,6,9,0,0,0,8");
+                    board.SaveToDB();
+                    return RetrieveAll();
+                }
+            }
+
+        }
         public void PrintBoard()//outputs the board in its current state
         {
             for (int i = 0; i < 9; i++)

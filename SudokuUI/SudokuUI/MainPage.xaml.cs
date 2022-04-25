@@ -180,7 +180,7 @@ namespace SudokuUI
                 double numWidth = (base.Height - (base.Width)) * 0.75;
 
                 //butGrid.HeightRequest = numWidth;// butGrid.Height;// 200;// (height - (width + 25)) * (3 / 4);
-                butGrid.WidthRequest = numWidth;//.75 * Convert.ToDouble((height - (width)) * (3 / 4) - 6);
+                //butGrid.WidthRequest = numWidth;//.75 * Convert.ToDouble((height - (width)) * (3 / 4) - 6);
             }
             else
             {

@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BoardSelect.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)FrontEnd\SudokuGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

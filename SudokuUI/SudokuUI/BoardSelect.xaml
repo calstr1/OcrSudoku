@@ -6,31 +6,43 @@
              mc:Ignorable="d"
              x:Class="SudokuUI.BoardSelect">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Puzzle Name" FontSize="Large" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" HeightRequest="30" />
-            <Grid x:FieldModifier="public" x:Name="displayGrid" BackgroundColor="Black">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-              </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-              </Grid.ColumnDefinitions>
+        <StackLayout x:Name="baseStack" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" Spacing="2" Padding="30">
+            <Label Text="Puzzle Name" FontSize="Large" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
+            <Grid x:FieldModifier="public" x:Name="displayGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="Transparent" Margin="1,1,0,1">
+                <Image x:Name="backgroundImage" Aspect="AspectFill" Grid.ColumnSpan="9" Grid.RowSpan="9" Source="blankgrid.png" Margin="-1,-1,0,-1"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Grid x:FieldModifier="public" x:Name="navGGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="AliceBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="&lt;" x:Name="prev" Clicked="NavBoard" Grid.Row="1" Grid.Column="1"></Button>
+                <Button Text="&gt;" x:Name="next"  Clicked="NavBoard" Grid.Row="1" Grid.Column="2"></Button>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

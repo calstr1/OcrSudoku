@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <StackLayout x:Name="buttonStack" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Spacing="2">
+       <StackLayout x:Name="buttonStack" Orientation="Horizontal" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" Spacing="2">
             <Grid x:Name="butGrid" ColumnSpacing="2" RowSpacing="2" BackgroundColor="Black" VerticalOptions="Fill" HorizontalOptions="Fill">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>

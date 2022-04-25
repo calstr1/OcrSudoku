@@ -1,0 +1,4 @@
+C:\Users\callu\Source\Repos\calstr1\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\120\MonoAndroid,Version=v12.0.AssemblyAttributes.cs
+C:\Users\callu\Source\Repos\calstr1\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\120\build.props
+C:\Users\callu\Source\Repos\calstr1\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\120\adb.props
+C:\Users\callu\Source\Repos\calstr1\OcrSudoku\SudokuUI\SudokuUI.Android\obj\Debug\120\SudokuUI.Android.csproj.AssemblyReference.cache
