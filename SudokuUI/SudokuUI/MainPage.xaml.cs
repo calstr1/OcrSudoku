@@ -59,8 +59,13 @@ namespace SudokuUI
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            if (i == "" || Unsolved.InitialBoard[id-1] != Unsolved.GameBoard[id-1]) b.Clicked += ButtonClicked;
-            else b.FontAttributes = FontAttributes.Bold;
+            if (i == "" || Unsolved.InitialBoard[id - 1] != Unsolved.GameBoard[id - 1]) b.Clicked += ButtonClicked;
+            else
+            {
+                b.FontAttributes = FontAttributes.Bold;
+                b.FontFamily = "Verdana";
+                b.FontSize += 3;
+            }
             return b;
         }
 

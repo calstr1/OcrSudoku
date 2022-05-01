@@ -33,16 +33,18 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
-            <Grid x:FieldModifier="public" x:Name="navGGrid" ColumnSpacing="-1" RowSpacing="-1" BackgroundColor="AliceBlue">
+            <Grid x:FieldModifier="public" x:Name="navGrid" ColumnSpacing="-1" RowSpacing="0" HorizontalOptions="FillAndExpand" BackgroundColor="AliceBlue" Margin="1,1,0,1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Text="&lt;" x:Name="prev" Clicked="NavBoard" Grid.Row="1" Grid.Column="1"></Button>
-                <Button Text="&gt;" x:Name="next"  Clicked="NavBoard" Grid.Row="1" Grid.Column="2"></Button>
+                <Button Text="&lt;" x:Name="prev" Clicked="NavBoard" Grid.Column="0" HorizontalOptions="FillAndExpand" TranslationX="0" />
+                <Button Text="Select" x:Name="selectButton" Clicked="SelectBoard" Grid.Column="1"  HorizontalOptions="FillAndExpand" TranslationX="0" />
+                <Button Text="&gt;" x:Name="next"  Clicked="NavBoard" Grid.Column="2"  HorizontalOptions="FillAndExpand" TranslationX="0" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

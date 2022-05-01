@@ -24,6 +24,8 @@ namespace SudokuUI.Droid
             string flocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string fpath = Path.Combine(flocation, fname);
 
+			Xamarin.Essentials.Platform.Init(this, bundle);
+
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new SudokuUI.App (fpath));
 		}

@@ -30,7 +30,12 @@ namespace SudokuUI
             //displayGrid.Bo
         }
 
-        async void NavBoard(object sender, EventArgs e)
+        private async void SelectBoard(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MainPage(Option));
+        }
+
+        private void NavBoard(object sender, EventArgs e)
         {
             Image backgroundImage = new Image
             {
@@ -40,13 +45,17 @@ namespace SudokuUI
 
             displayGrid.Children.Clear();
             displayGrid.Children.Add(backgroundImage);
-            string Direction = "next";
-            if (Direction == "next")
+            Grid.SetColumnSpan(backgroundImage, 9);
+            Grid.SetRowSpan(backgroundImage, 9);
+
+
+            string Direction = ((Button)sender).Text;
+            if (((Button)sender) == next)
             {
                 Selection++;
                 if (Selection >= Boards.Count) Selection = 0;
             }
-            if (Direction == "prev")
+            if (((Button)sender) == prev)
             {
                 Selection--;
                 if (Selection <= 0) Selection = Boards.Count - 1;
@@ -64,7 +73,7 @@ namespace SudokuUI
             {
                 col = i % 9;
                 row = i / 9;
-                num = "" + Option.InitialBoard[i];
+                num = "" + Option.GameBoard[i];
                 if (num == "0") displayGrid.Children.Add(CreateButton(""), col, row);
                 else displayGrid.Children.Add(CreateButton(num), col, row);
             }
@@ -85,13 +94,12 @@ namespace SudokuUI
 
         protected override void OnSizeAllocated(double width, double height)
         {
-            //width -= 10;
-            //height -= 10;
 
             base.OnSizeAllocated(width, height);
 
             displayGrid.HeightRequest = baseStack.Width - baseStack.Padding.Left * 2;
             displayGrid.WidthRequest = baseStack.Width - baseStack.Padding.Left * 2;
+            navGrid.WidthRequest = baseStack.Width - baseStack.Padding.Left * 2;
 
             /*if (width != height)
             {

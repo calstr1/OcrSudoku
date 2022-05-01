@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>pixel_5_-_api_30</SelectedDevice>
+    <SelectedDevice>Xiaomi Redmi Note 9 Pro</SelectedDevice>
     <DefaultDevice>pixel_5_-_api_30</DefaultDevice>
-    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
-    <ActiveDebugProfile>pixel_5_-_api_30</ActiveDebugProfile>
+    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
+    <ActiveDebugProfile>Xiaomi Redmi Note 9 Pro</ActiveDebugProfile>
   </PropertyGroup>
 </Project>
